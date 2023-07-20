@@ -1,0 +1,5 @@
+pandas
+selenium
+openpyxl
+Jinja2
+unidecode
