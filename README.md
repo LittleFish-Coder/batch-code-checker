@@ -7,6 +7,7 @@ This repo is designed for checking(tracking) the production date of cosmetics pr
 - Selenium
 - openpyxl
 - Jinja2
+
 use the commands below to install the packages
 ```bash
 pip install -r requirements.txt
