@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from unidecode import unidecode
@@ -11,25 +10,21 @@ safari.maximize_window()
 
 website_url = "https://www.checkfresh.com/cerave.html"
 safari.get(website_url)
+time.sleep(3)
 
 # locate the brand element
 wait = WebDriverWait(safari, 20)
 brand = wait.until(EC.element_to_be_clickable((By.ID, "brandButton")))
 brand.click()
+time.sleep(0.5)
 
 # find the desired brand
 desired_brand = "Lancome"
+# select the brand from the dropdown list with desired brand name
 brand_list = safari.find_element(By.ID, "brandScroll").find_elements(By.TAG_NAME, "a")
 for element in brand_list:
-    brand_name = element.find_element(By.CLASS_NAME, "name").text  # for English
-    brand_name_long = element.find_element(
-        By.CLASS_NAME, "long-name"
-    ).text  # for Chinese
-    print(brand_name)
-    if (
-        unidecode(brand_name).lower() == desired_brand.lower()
-        or brand_name_long == desired_brand
-    ):
+    brand_name = element.text
+    if unidecode(brand_name).lower() == desired_brand.lower():
         element.click()
         break
 
@@ -48,10 +43,8 @@ check.click()
 time.sleep(3)
 
 # get the result
-result = safari.find_element(By.ID, "results")
-result = (
-    result.text
-)  # for brand_name = lancome and desired_code = 40UN00, the result is "2021-11"
+# for brand_name = lancome and desired_code = 40UN00, the result is "2021-11"
+result = safari.find_element(By.ID, "results").text
 print(result)
 
 time.sleep(5)

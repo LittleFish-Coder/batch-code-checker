@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from unidecode import unidecode
 import time
 
-
 safari = webdriver.Safari()
 safari.maximize_window()
 
