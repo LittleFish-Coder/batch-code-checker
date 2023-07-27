@@ -11,6 +11,20 @@ brand_name_list = pd.read_excel("./data/check_fresh_brand.xlsx")["Brand"].tolist
 # lowercase the brand names
 brand_name_list = [unidecode(brand_name).lower() for brand_name in brand_name_list]
 
+brand_dict = {
+    "品木宣言": "Origins",
+    "DIOR": "Christian Dior",
+    "MAISON MARGIELA": "Maison Margiela Fragrances",
+    "赫蓮娜": "Helena Rubinstein",
+    "YSL": "Yves Saint Laurent",
+}
+
+
+def brand_mapping(deired_brand):
+    # return the mapped brand name if the brand name is in the dictionary
+    # otherwise, return the original brand name
+    return brand_dict.get(deired_brand, deired_brand)
+
 
 def check_if_brand_in_check_fresh(desired_brand):
     # Check if the brand name is in the official brand name list
@@ -35,6 +49,8 @@ def check_from_check_fresh(webdriver, df):
     for index, row in df.iterrows():
         desired_brand = str(row["品牌"])
         desired_code = row["批號"]
+        # Convert the brand name to the official brand name
+        desired_brand = brand_mapping(desired_brand)
         print(f"Brand: {desired_brand}, Batch: {desired_code}")
         result = ""
 
