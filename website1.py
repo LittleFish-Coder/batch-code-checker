@@ -7,18 +7,23 @@ import time
 from unidecode import unidecode
 
 # Official brand names
-brand_name_list = pd.read_excel("./data/cosmetic_momoko_brand.xlsx")["Brand"].tolist()
+brand_name_df = pd.read_excel("./data/cosmetic_momoko_brand.xlsx")
+brand_name_list = brand_name_df["Brand"].tolist()
+brand_name_chinese_list = brand_name_df["Brand Chinese"].tolist()
 # lowercase the brand names
-brand_name_list = [brand_name.lower() for brand_name in brand_name_list]
+brand_name_list = [unidecode(brand_name).lower() for brand_name in brand_name_list]
 
 
 def check_if_brand_in_cosmetic_momoko(desired_brand):
     # Check if the brand name is in the official brand name list
-    if desired_brand.lower() not in brand_name_list:
+    if (
+        unidecode(desired_brand).lower() in brand_name_list
+        or desired_brand in brand_name_chinese_list
+    ):
+        return True
+    else:
         print(desired_brand, "is not in the list")
         return False
-    else:
-        return True
 
 
 def datetime_parser(date_string):
@@ -74,6 +79,11 @@ def check_from_cosmetic_momoko(webdriver, df):
         print(f"Brand: {desired_brand}, Batch: {desired_code}")
         result = ""
 
+        # Check if the brand name is in the official brand name list
+        if not check_if_brand_in_cosmetic_momoko(desired_brand):
+            results.append(result)
+            continue
+
         # locate the brand element
         wait = WebDriverWait(webdriver, 20)
         brand = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "input-select")))
@@ -89,7 +99,7 @@ def check_from_cosmetic_momoko(webdriver, df):
             ).text  # for Chinese
             # print(brand_name)
             if (
-                unidecode(brand_name).lower() == desired_brand.lower()
+                unidecode(brand_name).lower() == unidecode(desired_brand).lower()
                 or brand_name_long == desired_brand
             ):
                 element.click()
@@ -137,22 +147,22 @@ def check_from_cosmetic_momoko(webdriver, df):
 
 # Uncomment the following lines to test the function
 
-# create a dataframe
-df = pd.DataFrame(
-    {
-        "品牌": ["LANCOME", "Gucci", "NARS"],
-        "批號": ["40UN00", "1326", "2062"],
-    }
-)
+# # create a dataframe
+# df = pd.DataFrame(
+#     {
+#         "品牌": ["LANCOME", "Gucci", "NARS"],
+#         "批號": ["40UN00", "1326", "2062"],
+#     }
+# )
 
-safari = webdriver.Safari()
-safari.maximize_window()
+# safari = webdriver.Safari()
+# safari.maximize_window()
 
-# LANCOME 40UN00 -> Nov 2021 (2021-11)
-# Gucci 1326 -> 22 Nov 2021 (2021-11-22)
-# NARS 2062 -> 2022 (2022)
-df = check_from_cosmetic_momoko(safari, df)
-print(df)
+# # LANCOME 40UN00 -> Nov 2021 (2021-11)
+# # Gucci 1326 -> 22 Nov 2021 (2021-11-22)
+# # NARS 2062 -> 2022 (2022)
+# df = check_from_cosmetic_momoko(safari, df)
+# print(df)
 
 # # Close the browser
-safari.quit()
+# safari.quit()

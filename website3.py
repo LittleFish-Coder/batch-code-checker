@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from unidecode import unidecode
 import pandas as pd
 import time
 
@@ -10,12 +11,12 @@ brand_name_list = pd.read_excel("./data/cosmetic_calculator_brand.xlsx")[
     "Brand"
 ].tolist()
 # lowercase the brand names
-brand_name_list = [brand_name.lower() for brand_name in brand_name_list]
+brand_name_list = [unidecode(brand_name).lower() for brand_name in brand_name_list]
 
 
 def check_if_brand_in_cosmetic_calculator(desired_brand):
     # Check if the brand name is in the official brand name list
-    if desired_brand.lower() not in brand_name_list:
+    if unidecode(desired_brand).lower() not in brand_name_list:
         print(desired_brand, "is not in the list")
         return False
     else:
@@ -41,7 +42,7 @@ def datetime_parser(date_string):
     # format type: yyyy-mm-dd
     date_string = date_string.split(",")
     if len(date_string) == 2:  # i.e. "14 of September, 2021"
-        day = date_string[0].split(" ")[0]
+        day = date_string[0].split(" ")[0].zfill(2)  # Ensure 2 digits for day i.e. 01
         month = date_string[0].split(" ")[2]
         # convert month to number
         month = months[month]
@@ -133,11 +134,11 @@ def check_from_cosmetic_calculator(webdriver, df):
 # safari = webdriver.Safari()
 # safari.maximize_window()
 
-# # Gucci 1326 -> 22 of November, 2021 (2021-11-22)
 # # LANCOME 40UN00 -> November 2021 (2021-11)
+# # Gucci 1326 -> 22 of November, 2021 (2021-11-22)
 # # NARS 2062 -> 2022 (2022)
 # df = check_from_cosmetic_calculator(safari, df)
 # print(df)
 
-# # # Close the browser
+# # Close the browser
 # safari.quit()
