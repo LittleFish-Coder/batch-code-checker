@@ -77,9 +77,10 @@ def check_from_check_fresh(webdriver, df):
         # print(results_element.text)
 
         try:
-            # if the result is correct, there will be a table
+            # if the result is correct, there will be a table, if there are more than one table, get the first one
+            results_table = results_element.find_element(By.TAG_NAME, "table")
             # then get the second td of the thrid tr
-            td_element = results_element.find_elements(By.TAG_NAME, "tr")[
+            td_element = results_table.find_elements(By.TAG_NAME, "tr")[
                 2
             ].find_elements(By.TAG_NAME, "td")[1]
             date_of_manufacture = td_element.text
@@ -99,22 +100,22 @@ def check_from_check_fresh(webdriver, df):
 
 # Uncomment the following lines to test the function
 
-# create a dataframe
-df = pd.DataFrame(
-    {
-        "品牌": ["LANCOME", "Gucci", "NARS"],
-        "批號": ["40UN00", "1326", "2062"],
-    }
-)
+# # create a dataframe
+# df = pd.DataFrame(
+#     {
+#         "品牌": ["LANCOME", "Gucci", "NARS"],
+#         "批號": ["40UN00", "2062", "2062"],
+#     }
+# )
 
-safari = webdriver.Safari()
-safari.maximize_window()
+# safari = webdriver.Safari()
+# safari.maximize_window()
 
-# LANCOME 40UN00 -> 2021-11
-# Gucci 1326 -> 2021-11-22
-# NARS 2062 -> 2022-03-03
-df = check_from_check_fresh(safari, df)
-print(df)
+# # LANCOME 40UN00 -> 2021-11
+# # Gucci 1326 -> 2021-11-22
+# # NARS 2062 -> 2022-03-03
+# df = check_from_check_fresh(safari, df)
+# print(df)
 
-# Close the browser
-safari.quit()
+# # Close the browser
+# safari.quit()

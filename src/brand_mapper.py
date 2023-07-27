@@ -10,6 +10,3 @@ def brand_mapping(brand):
         return brand_dict[brand]
     except:
         return None
-
-
-# print(brand_mapping("Dior"))
