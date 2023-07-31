@@ -63,6 +63,7 @@ def datetime_parser(date_string):
 
 
 def check_from_cosmetic_momoko(webdriver, df):
+    print("Checking from Cosmetic Momoko")
     website_url = "https://cosmetic.momoko.hk/zh"
 
     # Check if the website is already open in the browser
@@ -117,13 +118,13 @@ def check_from_cosmetic_momoko(webdriver, df):
 
         # get the result
         check_result_element = webdriver.find_element(By.ID, "msg")
-        print(check_result_element.text)
+        # print(check_result_element.text)
 
         try:
             # if the result is correct, there will be a strong element
             strong_tag = check_result_element.find_element(By.TAG_NAME, "strong")
             date_of_manufacture = strong_tag.text
-            print(date_of_manufacture)
+            # print(date_of_manufacture)
             result = datetime_parser(date_of_manufacture)
             print(result)
         except:

@@ -36,6 +36,7 @@ def check_if_brand_in_check_fresh(desired_brand):
 
 
 def check_from_check_fresh(webdriver, df):
+    print("Checking from Check Fresh")
     website_url = "https://www.checkfresh.com/cerave.html"
 
     # Check if the website is already open in the browser

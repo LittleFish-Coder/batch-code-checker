@@ -75,6 +75,7 @@ def datetime_parser(date_string):
 
 
 def check_from_cosmetic_calculator(webdriver, df):
+    print("Checking from Cosmetic Calculator")
     website_url = "https://checkcosmetic.net"
 
     # Check if the website is already open in the browser

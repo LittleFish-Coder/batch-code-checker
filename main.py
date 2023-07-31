@@ -17,6 +17,12 @@ def fill_brand(df):
             if pd.notna(previous_brand):
                 df.at[index, "品牌"] = previous_brand
 
+    try:
+        # transform the first column's data type to str
+        df["國際碼"] = df["國際碼"].fillna("").astype(str)
+    except:
+        pass
+
     return df
 
 
@@ -44,25 +50,28 @@ df = fill_brand(df)
 # Open the browser
 
 # for safari user
-safari = webdriver.Safari()
-safari.maximize_window()
+# safari = webdriver.Safari()
+# safari.maximize_window()
 
-# for chrome user
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.add_argument("--headless") # hide the browser in the background
-# chrome = webdriver.Chrome(options=chrome_options)
+# for edge user
+edge_options = webdriver.EdgeOptions()
+edge_options.use_chromium = True
+# set the browser screen size as 1920x1080
+edge_options.add_argument("window-size=1920,1080")
+edge_options.add_argument("--headless")  # hide the browser in the background
+edge = webdriver.Edge(options=edge_options)
 
 # website1
-df = check_from_cosmetic_momoko(safari, df)
-# df = check_from_cosmetic_momoko(chrome, df)
+# df = check_from_cosmetic_momoko(safari, df)
+df = check_from_cosmetic_momoko(edge, df)
 
 # website2
-df = check_from_check_fresh(safari, df)
-# df = check_from_check_fresh(chrome, df)
+# df = check_from_check_fresh(safari, df)
+df = check_from_check_fresh(edge, df)
 
 # website3
-df = check_from_cosmetic_calculator(safari, df)
-# df = check_from_cosmetic_calculator(chrome, df)
+# df = check_from_cosmetic_calculator(safari, df)
+df = check_from_cosmetic_calculator(edge, df)
 
 # Highlight the rows that have different results
 # df = highlight(df)
@@ -71,5 +80,5 @@ df = check_from_cosmetic_calculator(safari, df)
 df.to_excel("products_with_date_of_manufacture.xlsx", index=False)
 
 # Close the browser
-safari.quit()
-# chrome.quit()
+# safari.quit()
+edge.quit()
