@@ -60,39 +60,40 @@ def check_from_check_fresh(webdriver, df):
             results.append(result)
             continue
 
-        # locate the brand element
-        wait = WebDriverWait(webdriver, 20)
-        brand = wait.until(EC.element_to_be_clickable((By.ID, "brandButton")))
-        brand.click()
-        time.sleep(0.5)
-
-        # select the brand from the dropdown list with desired brand name
-        brand_list = webdriver.find_element(By.ID, "brandScroll").find_elements(
-            By.TAG_NAME, "a"
-        )
-        for element in brand_list:
-            brand_name = element.text
-            if unidecode(brand_name).lower() == desired_brand.lower():
-                element.click()
-                break
-
-        time.sleep(2)
-
-        # locate the product S/N input element and input the desired S/N code
-        code = webdriver.find_element(By.ID, "frmBatch")
-        code.clear()
-        code.send_keys(desired_code)
-
-        # locate the check button and click it
-        check = webdriver.find_element(By.CSS_SELECTOR, 'input[type="submit"]')
-        check.click()
-        time.sleep(2)
-
-        # Get the content of the "results" element
-        results_element = webdriver.find_element(By.ID, "results")
-        # print(results_element.text)
-
         try:
+            # locate the brand element
+            wait = WebDriverWait(webdriver, 20)
+            brand = wait.until(EC.element_to_be_clickable((By.ID, "brandButton")))
+            brand.click()
+            time.sleep(0.5)
+
+            # select the brand from the dropdown list with desired brand name
+            brand_list = webdriver.find_element(By.ID, "brandScroll").find_elements(
+                By.TAG_NAME, "a"
+            )
+            for element in brand_list:
+                brand_name = element.text
+                if unidecode(brand_name).lower() == desired_brand.lower():
+                    element.click()
+                    time.sleep(0.5)
+                    break
+            # wait for the page to load
+            time.sleep(2)
+
+            # locate the product S/N input element and input the desired S/N code
+            code = webdriver.find_element(By.ID, "frmBatch")
+            code.clear()
+            code.send_keys(desired_code)
+            # locate the check button and click it
+            check = webdriver.find_element(By.CSS_SELECTOR, 'input[type="submit"]')
+            check.click()
+            # wait for the page to load
+            time.sleep(2)
+
+            # Get the content of the "results" element
+            results_element = webdriver.find_element(By.ID, "results")
+            # print(results_element.text)
+
             # if the result is correct, there will be a table, if there are more than one table, get the first one
             results_table = results_element.find_element(By.TAG_NAME, "table")
             # then get the second td of the thrid tr

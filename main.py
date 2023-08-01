@@ -79,6 +79,8 @@ df = check_from_cosmetic_calculator(edge, df)
 # Save the dataframe to a new excel file
 df.to_excel("products_with_date_of_manufacture.xlsx", index=False)
 
+print("Done")
+
 # Close the browser
 # safari.quit()
 edge.quit()

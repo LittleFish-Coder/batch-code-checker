@@ -99,27 +99,27 @@ def check_from_cosmetic_calculator(webdriver, df):
             results.append(result)
             continue
 
-        # Wait for the brand select element to be populated
-        wait = WebDriverWait(webdriver, 20)
-        wait.until(EC.presence_of_element_located((By.ID, "brandid")))
-
-        # Clear the form fields
-        webdriver.find_element(By.ID, "codeinput").clear()
-        # Fill in the form fields and submit
-        webdriver.find_element(By.ID, "quicksearch").send_keys(desired_brand)
-        webdriver.find_element(By.ID, "codeinput").send_keys(desired_code)
-        time.sleep(1)
-        # Wait until the submit button is clickable
-        wait.until(EC.element_to_be_clickable((By.ID, "codesubmit")))
-        webdriver.find_element(By.ID, "codesubmit").click()
-
-        # Wait for the dynamic content to be populated
-        time.sleep(2)
-        # Get the content of the "checkResult" element
-        check_result_element = webdriver.find_element(By.ID, "checkResult")
-        # print(check_result_element.text)
-
         try:
+            # Wait for the brand select element to be populated
+            wait = WebDriverWait(webdriver, 20)
+            wait.until(EC.presence_of_element_located((By.ID, "brandid")))
+
+            # Clear the form fields
+            webdriver.find_element(By.ID, "codeinput").clear()
+            # Fill in the form fields and submit
+            webdriver.find_element(By.ID, "quicksearch").send_keys(desired_brand)
+            webdriver.find_element(By.ID, "codeinput").send_keys(desired_code)
+            time.sleep(1)
+            # Wait until the submit button is clickable
+            wait.until(EC.element_to_be_clickable((By.ID, "codesubmit")))
+            webdriver.find_element(By.ID, "codesubmit").click()
+            # Wait for the dynamic content to be populated
+            time.sleep(2)
+
+            # Get the content of the "checkResult" element
+            check_result_element = webdriver.find_element(By.ID, "checkResult")
+            # print(check_result_element.text)
+
             # get the span element
             span_element = check_result_element.find_element(By.TAG_NAME, "span")
             date_of_manufacture = span_element.text

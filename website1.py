@@ -85,58 +85,63 @@ def check_from_cosmetic_momoko(webdriver, df):
             results.append(result)
             continue
 
-        # locate the brand element
-        wait = WebDriverWait(webdriver, 20)
-        brand = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "input-select")))
-        brand.click()
-        time.sleep(0.5)
-
-        # select the brand from the dropdown list with desired brand name
-        brand_list = webdriver.find_elements(By.CSS_SELECTOR, "[data-selectable]")
-        for element in brand_list:
-            brand_name = element.find_element(By.CLASS_NAME, "name").text  # for English
-            brand_name_long = element.find_element(
-                By.CLASS_NAME, "long-name"
-            ).text  # for Chinese
-            # print(brand_name)
-            if (
-                unidecode(brand_name).lower() == unidecode(desired_brand).lower()
-                or brand_name_long == desired_brand
-            ):
-                element.click()
-                break
-
-        # locate the product S/N input element and input the desired S/N batch code
-        code = webdriver.find_element(By.ID, "code")
-        code.clear()
-        code.send_keys(desired_code)
-
-        # locate the check button and click it
-        check = webdriver.find_element(By.ID, "btn-check")
-        check.click()
-        time.sleep(2)
-
-        # get the result
-        check_result_element = webdriver.find_element(By.ID, "msg")
-        # print(check_result_element.text)
-
         try:
+            # locate the brand element
+            wait = WebDriverWait(webdriver, 20)
+            brand = wait.until(
+                EC.element_to_be_clickable((By.CLASS_NAME, "input-select"))
+            )
+            brand.click()
+            time.sleep(0.5)
+
+            # select the brand from the dropdown list with desired brand name
+            brand_list = webdriver.find_elements(By.CSS_SELECTOR, "[data-selectable]")
+            for element in brand_list:
+                brand_name = element.find_element(
+                    By.CLASS_NAME, "name"
+                ).text  # for English
+                brand_name_long = element.find_element(
+                    By.CLASS_NAME, "long-name"
+                ).text  # for Chinese
+                # print(brand_name)
+                if (
+                    unidecode(brand_name).lower() == unidecode(desired_brand).lower()
+                    or brand_name_long == desired_brand
+                ):
+                    element.click()
+                    break
+
+            # locate the product S/N input element and input the desired S/N batch code
+            code = webdriver.find_element(By.ID, "code")
+            code.clear()
+            code.send_keys(desired_code)
+            # locate the check button and click it
+            check = webdriver.find_element(By.ID, "btn-check")
+            check.click()
+            # wait for the page to load
+            time.sleep(2)
+
+            # get the result
+            check_result_element = webdriver.find_element(By.ID, "msg")
+            # print(check_result_element.text)
+
             # if the result is correct, there will be a strong element
             strong_tag = check_result_element.find_element(By.TAG_NAME, "strong")
             date_of_manufacture = strong_tag.text
             # print(date_of_manufacture)
             result = datetime_parser(date_of_manufacture)
             print(result)
+
+            # close the msg window
+            close = webdriver.find_element(
+                By.CLASS_NAME, "fancybox-button.fancybox-close-small"
+            )
+            close.click()
+            time.sleep(1)
+
         except:
             result = ""
             print("No date of manufacture found")
-
-        # close the msg window
-        close = webdriver.find_element(
-            By.CLASS_NAME, "fancybox-button.fancybox-close-small"
-        )
-        close.click()
-        time.sleep(1)
 
         results.append(result)
 
