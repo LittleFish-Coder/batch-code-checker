@@ -86,8 +86,7 @@ def check_from_check_fresh(webdriver, df):
         # locate the check button and click it
         check = webdriver.find_element(By.CSS_SELECTOR, 'input[type="submit"]')
         check.click()
-
-        time.sleep(3)
+        time.sleep(2)
 
         # Get the content of the "results" element
         results_element = webdriver.find_element(By.ID, "results")

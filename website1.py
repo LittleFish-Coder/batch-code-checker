@@ -114,7 +114,7 @@ def check_from_cosmetic_momoko(webdriver, df):
         # locate the check button and click it
         check = webdriver.find_element(By.ID, "btn-check")
         check.click()
-        time.sleep(3)
+        time.sleep(2)
 
         # get the result
         check_result_element = webdriver.find_element(By.ID, "msg")

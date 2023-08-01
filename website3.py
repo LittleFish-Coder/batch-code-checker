@@ -108,13 +108,13 @@ def check_from_cosmetic_calculator(webdriver, df):
         # Fill in the form fields and submit
         webdriver.find_element(By.ID, "quicksearch").send_keys(desired_brand)
         webdriver.find_element(By.ID, "codeinput").send_keys(desired_code)
-        time.sleep(1.5)
+        time.sleep(1)
         # Wait until the submit button is clickable
         wait.until(EC.element_to_be_clickable((By.ID, "codesubmit")))
         webdriver.find_element(By.ID, "codesubmit").click()
 
         # Wait for the dynamic content to be populated
-        time.sleep(3)
+        time.sleep(2)
         # Get the content of the "checkResult" element
         check_result_element = webdriver.find_element(By.ID, "checkResult")
         # print(check_result_element.text)
@@ -147,14 +147,23 @@ def check_from_cosmetic_calculator(webdriver, df):
 #     }
 # )
 
-# safari = webdriver.Safari()
-# safari.maximize_window()
+# # for safari user
+# # safari = webdriver.Safari()
+# # safari.maximize_window()
+
+# # for edge user
+# edge_options = webdriver.EdgeOptions()
+# edge_options.use_chromium = True
+# # set the browser screen size as 1920x1080
+# edge_options.add_argument("window-size=1920,1080")
+# edge_options.add_argument("--headless")  # hide the browser in the background
+# edge = webdriver.Edge(options=edge_options)
 
 # # LANCOME 40UN00 -> November 2021 (2021-11)
 # # Gucci 1326 -> 22 of November, 2021 (2021-11-22)
 # # NARS 2062 -> 2022 (2022)
-# df = check_from_cosmetic_calculator(safari, df)
+# df = check_from_cosmetic_calculator(edge, df)
 # print(df)
 
 # # Close the browser
-# safari.quit()
+# edge.quit()
