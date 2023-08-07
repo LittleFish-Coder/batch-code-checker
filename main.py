@@ -58,8 +58,11 @@ edge_options = webdriver.EdgeOptions()
 edge_options.use_chromium = True
 # set the browser screen size as 1920x1080
 edge_options.add_argument("window-size=1920,1080")
-edge_options.add_argument("--headless")  # hide the browser in the background
+edge_options.add_argument("--headless=new")  # hide the browser in the background
+edge_options.add_extension("./src/AdBlock.crx")  # add adblock extension
 edge = webdriver.Edge(options=edge_options)
+print("Browser is opened, and waiting for the extension to be installed...")
+time.sleep(3)  # wait for the browser to install the extension
 
 # website1
 # df = check_from_cosmetic_momoko(safari, df)

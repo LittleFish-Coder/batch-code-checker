@@ -137,7 +137,7 @@ def check_from_cosmetic_momoko(webdriver, df):
                 By.CLASS_NAME, "fancybox-button.fancybox-close-small"
             )
             close.click()
-            time.sleep(1)
+            time.sleep(0.5)
 
         except:
             result = ""
