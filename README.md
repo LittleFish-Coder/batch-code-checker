@@ -48,8 +48,8 @@ And make sure the columns contain the following information:
 
 ## Usage
 
-- [Edge](#Edge) (Recommended)
-- [Safari](#Safari)
+- [Edge](#edge) (Recommended)
+- [Safari](#safari)
 
 ### Edge
 
