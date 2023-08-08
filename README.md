@@ -2,11 +2,28 @@
 
 This repo is designed for checking(tracking) the production date of cosmetics products
 
+## Installation
+Clone the repository to your local machine or download the zip file.
+```bash
+git clone https://github.com/LittleFish-Coder/batch-code-checker.git
+```
+
 ## Packages
-- pandas
-- Selenium
-- openpyxl
-- Jinja2
+The packages are listed in the requirements.txt file: 
+- pandas==2.0.2
+- selenium==4.10.0
+- openpyxl==3.1.2
+- jinja2==3.1.2
+- unidecode==1.3.6
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the packages.
+```bash
+pip install -r requirements.txt
+```
+Or use pip3 depending on your python version
+```bash
+pip3 install -r requirements.txt
+```
 
 use the commands below to install the packages
 ```bash
