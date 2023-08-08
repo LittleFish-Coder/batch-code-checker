@@ -25,13 +25,12 @@ Or use pip3 depending on your python version
 pip3 install -r requirements.txt
 ```
 
-use the commands below to install the packages
-```bash
-pip install -r requirements.txt
-```
-
-## Attention:
+## Preqrequisites
 Make sure you have already downloaded the webdriver before you use the program.
+
+In this program, I use Safari and Edge as an example.
+You can use other webdrivers as well.
+
 There are 4 different webdrivers to select:
 - [Chrome](https://chromedriver.chromium.org/downloads)
 - [Edge](https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/)
@@ -40,8 +39,36 @@ There are 4 different webdrivers to select:
 
 Follow the instruction to download the webdriver and read the documentation based on your chosen webdriver.
 
-In this program, I use Safari as an example.
-Make sure you turn on the remote automation in Safari.
+## Preparation
+
+Prepare 批號日期.xlsx file in the same directory as the main.py file.
+And make sure the columns contain the following information:
+- 品牌
+- 批號
+
+## Usage
+
+- [Edge](#Edge) (Recommended)
+- [Safari](#Safari)
+
+### Edge
+
+Before using the program, make sure you have already downloaded the [Edge Browser](https://www.microsoft.com/zh-tw/edge/download?form=MA13FJ) and the corresponding [webdriver](https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/).
+
+When downloading the webdriver, make sure you choose the stable version of the webdriver.
+![webdriver](./img/webdriver.png)
+
+If you have done the above steps, you can run the program directly.
+
+```bash
+python main.py
+```
+
+After the program is finished, you will see the products_with_date_of_manufacture.xlsx file in the same directory.
+
+### Safari
+
+Before using the program, make sure you turn on the remote automation in Safari.
 
 To Enable Remote Automation in Safari:
 - Open Safari
