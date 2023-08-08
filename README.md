@@ -58,6 +58,16 @@ Before using the program, make sure you have already downloaded the [Edge Browse
 When downloading the webdriver, make sure you choose the stable version of the webdriver.
 ![webdriver](./img/webdriver.png)
 
+After downloading the webdriver, you should put the webdriver into your PATH.
+
+In macOS, you can put the webdriver into `/usr/local/bin` directory.
+- open the Finder
+- press `command + shift + g`
+- type `/usr/local/bin` and press `enter` (if /usr/local/bin doesn't exist, create one)
+- put the webdriver into the `/usr/local/bin` directory
+
+![path](./img/path.gif)
+
 ### Safari
 
 Before using the program, make sure you turn on the remote automation in Safari.
