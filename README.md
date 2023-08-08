@@ -41,7 +41,7 @@ Follow the instruction to download the webdriver and read the documentation base
 
 ## Preparation
 
-Prepare 批號日期.xlsx file in the same directory as the main.py file.
+Prepare `批號日期.xlsx` file in the same directory as the `main.py` file.
 And make sure the columns contain the following information:
 - 品牌
 - 批號
@@ -58,14 +58,6 @@ Before using the program, make sure you have already downloaded the [Edge Browse
 When downloading the webdriver, make sure you choose the stable version of the webdriver.
 ![webdriver](./img/webdriver.png)
 
-If you have done the above steps, you can run the program directly.
-
-```bash
-python main.py
-```
-
-After the program is finished, you will see the products_with_date_of_manufacture.xlsx file in the same directory.
-
 ### Safari
 
 Before using the program, make sure you turn on the remote automation in Safari.
@@ -79,3 +71,12 @@ To Enable Remote Automation in Safari:
 ![settings](./img/img1.png)
 ![Show Develop menu in menu bar](./img/img2.png)
 ![Allow Remote Automation](./img/img3.png)
+
+### Result
+If you have done the above steps, you can run the program directly.
+
+```bash
+python main.py
+```
+
+After the program is finished, you will see the `products_with_date_of_manufacture.xlsx` file in the same directory.
