@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="Zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="icon" href="/src/icon.png">
+    <title>Batch Code Checker</title>
+    <script>
+        $(document).ready(function() {
+            $("#submit-btn").click(function() {
+                var formData = new FormData($("#upload-form")[0]);
+                $.ajax({
+                    url: '/result',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $("#result").html(response);  // Update the result div with the response
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1 style="text-align:center;">Batch Code Checker</h1>
+    <div style="text-align:center;">
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" name="file" id="file">
+            <input type="button" id="submit-btn" value="Submit">
+        </form>    
+    </div>
+    <div id="result"></div>
+
+    
+</body>
+</html>
